@@ -127,6 +127,7 @@ def webhook():
                     messageArgs[0] = params[0]
                     messageArgs[1] = params[1]
                     messageArgs[2] = params[2]
+                    print(messageArgs)
                     #id = sender_id
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
