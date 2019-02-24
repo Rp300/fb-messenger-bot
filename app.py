@@ -83,6 +83,7 @@ def webhook():
                     print("before formatting")
                     check = format_input(message_text)
                     if (check == None):
+                        print(message_text + " is an illegal input")
                         send_message(sender_id,"Please reformat your code");
                         return "ok",400
                     #     print("none")
