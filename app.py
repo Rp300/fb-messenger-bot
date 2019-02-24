@@ -83,8 +83,8 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
                     print("before formatting")
                     send_message(sender_id, message_text)
-                    list = format_input(message_text)
-                    send_message(sender_id, "Name: " + str(list[0]) + ", Email: " + str(list[1]) + ", Amount: " + str(list[2]))
+                    #list = format_input(message_text)
+                    #send_message(sender_id, "Name: " + str(list[0]) + ", Email: " + str(list[1]) + ", Amount: " + str(list[2]))
                     return "ok", 200
                     #if (check == None):
                     #    print(message_text + " is an illegal input")
