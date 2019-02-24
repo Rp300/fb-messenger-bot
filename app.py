@@ -8,6 +8,44 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+class Check:
+    def __init__(self, full_name, email, amount):
+        self.full_name = full_name
+        self.email = email
+        self.amount = amount
+
+    def to_string(self):
+        return "Name: " + self.full_name + ", Email: " + self.email + ", Amount: " + self.amount
+
+def format_input(message):
+    full_name = ""
+    email = None
+    amount = None
+
+    ##Input message for the user promprint string format
+    print("send a check to [first name] [last name] at [email] for $[amount]")
+    for i in message.split(" "):
+        if ('@' in i):
+            email = i
+        elif (amount == None):
+            try:
+                amount = float(i.replace('$',''))
+            except ValueError:
+                amount = None
+
+    if (message.split(" ")[3] == "to"):
+        for i in message.split(" ")[4:message.split(" ").index("at")]:
+            full_name += i + " "
+
+
+    ##print(full_name)
+    ##print(email)
+    ##print(amount)
+
+    if (full_name == None or email == None or amount == None):
+        return None
+    else:
+        return Check(full_name, email, amount)
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -39,8 +77,10 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-
-                    send_message(sender_id, message_text)
+                    check = format_input(message_text)
+                    if (check == None):
+                        send_message(sender_id, "NONE")
+                    send_message(sender_id, check.to_string())
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -76,6 +116,7 @@ def send_message(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
 
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
