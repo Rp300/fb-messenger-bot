@@ -46,7 +46,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     #name,email,amount
-                    if message_text != "*,*@*,$*":
+                    if message_text != "*,*,*":
                         send_message(sender_id, "Please send message in the following format1:")
                         send_message(sender_id, "name, email, $amount")
                         return "ok", 200
