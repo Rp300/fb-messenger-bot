@@ -60,8 +60,9 @@ def webhook():
                         return "ok", 200
                     for i in params:
                         string += i + " "
-
-                    send_message(sender_id, string)
+                    formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
+                    send_message(sender_id, "Sending " + params[2] + " to " + params[0] + "(" + params[1] + ")")
+                    send_message(sender_id, formattedString)
                     return "ok", 200
 
 
