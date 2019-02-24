@@ -62,7 +62,6 @@ def webhook():
                         string += i + " "
                     formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
                     send_message(sender_id, "Sending " + params[2] + " to " + params[0] + "(" + params[1] + ")")
-                    send_message(sender_id, formattedString)
                     return "ok", 200
 
 
@@ -105,15 +104,7 @@ def send_message(recipient_id, message_text):
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     print(msg)
-    # try:
-    #     if type(msg) is dict:
-    #         msg = json.dumps(msg)
-    #     else:
-    #         msg = unicode(msg).format(*args, **kwargs)
-    #     print("{}: {}".format(datetime.now(), msg))
-    # except UnicodeEncodeError:
-    #     pass  # squash logging errors in case of non-ascii text
-    # sys.stdout.flush()
+
 
 
 if __name__ == '__main__':
