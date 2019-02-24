@@ -82,7 +82,7 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
                     print("before formatting")
                     send_message(sender_id, message_text)
-                    check = format_input(message_text)
+                    #check = format_input(message_text)
                     #if (check == None):
                     #    print(message_text + " is an illegal input")
                     #    send_message(sender_id,"Please reformat your code");
@@ -91,7 +91,7 @@ def webhook():
                     #     send_message(sender_id, "NONE")
                     #     check = Check()
                     # print("1here")
-                    send_message(sender_id, check.to_string())
+                    #send_message(sender_id, check.to_string())
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
