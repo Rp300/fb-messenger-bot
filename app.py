@@ -12,6 +12,8 @@ def format_input(message):
     params = message.split(",");
     for elem in params:
         elem = elem.strip()
+    if len(param[2]) == 1:
+        param[2] = param[2] += " "
     return params
 
 
@@ -54,7 +56,7 @@ def webhook():
                     string = ""
                     toEdit = params[2]
                     params[2] = toEdit[1:]
-                    if len(params[2]) == 0:
+                    if " " in params[2]:
                         send_message(sender_id, "Please enter a valid payment:")
                         send_message(sender_id, "\'Recipient Name\', \'Recipient Email\', \'$Payment\'")
                         return "ok", 200
