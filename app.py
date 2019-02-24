@@ -22,6 +22,9 @@ def format_input(message):
     email = None
     amount = None
 
+    if (len(message.split(" ")) < 3):
+        return None
+
     ##Input message for the user promprint string format
     print("send a check to [first name] [last name] at [email] for $[amount]")
     for i in message.split(" "):
@@ -77,13 +80,14 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    print("before formatting")
-                    check = format_input(message_text)
-                    if (check == None):
-                        print("none")
-                        send_message(sender_id, "NONE")
-                    print("1here")
-                    send_message(sender_id, check.to_string())
+                    # print("before formatting")
+                    # check = format_input(message_text)
+                    # if (check == None):
+                    #     print("none")
+                    #     send_message(sender_id, "NONE")
+                    # print("1here")
+                    # send_message(sender_id, check.to_string())
+                    send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
