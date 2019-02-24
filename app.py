@@ -166,7 +166,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 def write(name, email, amount, sender_id):
     file = open("data.txt", "w")
-    file.write(name + "," + email + "," + amount, + ",", sender_id)
+    file.write(name + "," + email + "," + amount + "," + sender_id)
     file.close()
 
 def read():
