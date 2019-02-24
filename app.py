@@ -8,6 +8,7 @@ from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
 messageArgs = ["test", "invalid@gmail.com", "5.00"]
+sender_id = ""
 
 def format_input(message):
     params = message.split(",");
