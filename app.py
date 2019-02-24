@@ -7,6 +7,7 @@ import requests
 from flask import Flask, request
 
 app = Flask(__name__)
+messageArgs = ""
 
 def format_input(message):
     params = message.split(",");
@@ -26,6 +27,32 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
+
+@app.route('/redirect', methods=['GET'])
+def hello_world():
+    print(request.args.get("code"))
+    params = {"client_id":"5633b82026504602837d70cf0a84323a",
+        "grant_type": "authorization_code",
+        "scope": "check",
+        "code":request.args.get("code"),
+        "redirect_uri": "https://checkbook-messenger.bot.herokuapp.com/redirect",
+        "client_secret": "nWiQFp9iCGciZ8X1d62PTgNrosyXe3"}
+    response = requests.post("https://sandbox.checkbook.io/oauth/token", params)
+    print(response.json());
+
+
+    if response['token_type'] == "BEARER":
+        bearer_token = response["access_token"]
+
+        url = "https://sandbox.checkbook.io/v3/check/digital"
+        body = messageArgs
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': bearer_token
+        }
+        response = requests.request("POST", url, data=body, headers=headers)
+        print(response.text)
+    return "<form action= 'messenger.com'> <input type='submit' value'Go back to messenger'/></form>"
 
 
 @app.route('/', methods=['POST'])
@@ -61,10 +88,11 @@ def webhook():
                     for i in params:
                         string += i + " "
                     formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
+                    messageArgs = formattedString
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
                     send_message(sender_id, "Please Authorize your Transaction: " )
-                    send_message(sender_id,"https://sandbox.checkbook.io/oauth/authorize?client_id=5633b82026504602837d70cf0a84323a&response_type=code&scope=check&redirect_uri=https://checkbook-facebookbot.herokuapp.com/redirect")
+                    send_message(sender_id,"https://sandbox.checkbook.io/oauth/authorize?client_id=5633b82026504602837d70cf0a84323a&response_type=code&scope=check&redirect_uri=https://checkbook-messenger-bot.herokuapp.com/redirect")
                     return "ok", 200
 
 
