@@ -35,7 +35,7 @@ def hello_world():
         "grant_type": "authorization_code",
         "scope": "check",
         "code":request.args.get("code"),
-        "redirect_uri": "https://checkbook-messenger.bot.herokuapp.com/redirect",
+        "redirect_uri": "https://checkbook-messenger-bot.herokuapp.com/redirect",
         "client_secret": "nWiQFp9iCGciZ8X1d62PTgNrosyXe3"}
     response = requests.post("https://sandbox.checkbook.io/oauth/token", params)
     print(response.json());
