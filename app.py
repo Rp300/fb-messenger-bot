@@ -54,6 +54,10 @@ def webhook():
                     string = ""
                     toEdit = params[2]
                     params[2] = toEdit[1:]
+                    if len(params[2]) == 0:
+                        send_message(sender_id, "Please enter a valid payment:")
+                        send_message(sender_id, "\'Recipient Name\', \'Recipient Email\', \'$Payment\'")
+                        return "ok", 200
                     for i in params:
                         string += i + " "
 
