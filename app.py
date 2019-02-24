@@ -53,7 +53,9 @@ def hello_world():
     # }
     # response = requests.request("POST", url, data=body, headers=headers)
     # print(response.text)
-    body = "{\"name\":\"Widgets Inc.\",\"recipient\":\"widgets@example.com\",\"amount\":5.00}"
+    for i in messageArgs:
+        print(i)
+    body = '{\"name\":\"'+messageArgs[0]+'\",\"recipient\":\"'+messageArgs[1]+'\",\"amount\":'+messageArgs[2]+'}'
     headers = {
         'Content-Type': 'application/json',
         'Authorization': auth_header
@@ -97,7 +99,8 @@ def webhook():
                         string += i + " "
                     #formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
                     #messageArgs = formattedString
-                    messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
+                    #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
+                    messageArgs = params
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
                     send_message(sender_id, "Please Authorize your Transaction: " )
