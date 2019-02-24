@@ -55,6 +55,7 @@ def hello_world():
     # }
     # response = requests.request("POST", url, data=body, headers=headers)
     # print(response.text)
+    print("HERE3")
     print(messageArgs)
     body = '{\"name\":\"'+messageArgs[0]+'\",\"recipient\":\"'+messageArgs[1]+'\",\"amount\":'+messageArgs[2]+'}'
     headers = {
@@ -123,10 +124,12 @@ def webhook():
                     #formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
                     #messageArgs = formattedString
                     #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
+                    print("HERE1")
                     print(params)
                     messageArgs[0] = params[0]
                     messageArgs[1] = params[1]
                     messageArgs[2] = params[2]
+                    print("HERE2")
                     print(messageArgs)
                     #id = sender_id
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
