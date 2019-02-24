@@ -90,7 +90,7 @@ def webhook():
                     #     send_message(sender_id, "NONE")
                     #     check = Check()
                     # print("1here")
-                    send_message(sender_id, check.to_string())
+                    #send_message(sender_id, check.to_string())
                     send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
