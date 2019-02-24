@@ -79,15 +79,16 @@ def send_message(recipient_id, message_text):
 
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
-    try:
-        if type(msg) is dict:
-            msg = json.dumps(msg)
-        else:
-            msg = unicode(msg).format(*args, **kwargs)
-        print("{}: {}".format(datetime.now(), msg))
-    except UnicodeEncodeError:
-        pass  # squash logging errors in case of non-ascii text
-    sys.stdout.flush()
+    print(msg)
+    # try:
+    #     if type(msg) is dict:
+    #         msg = json.dumps(msg)
+    #     else:
+    #         msg = unicode(msg).format(*args, **kwargs)
+    #     print("{}: {}".format(datetime.now(), msg))
+    # except UnicodeEncodeError:
+    #     pass  # squash logging errors in case of non-ascii text
+    # sys.stdout.flush()
 
 
 if __name__ == '__main__':
