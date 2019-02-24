@@ -68,24 +68,24 @@ def hello_world():
 
 @app.route('/success', methods=['GET'])
 def success():
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": id
-        },
-        "message": {
-            "text": "Your payment has been successfully completed. You should recieve an email soon."
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
+    # params = {
+    #     "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    # }
+    # headers = {
+    #     "Content-Type": "application/json"
+    # }
+    # data = json.dumps({
+    #     "recipient": {
+    #         "id": id
+    #     },
+    #     "message": {
+    #         "text": "Your payment has been successfully completed. You should recieve an email soon."
+    #     }
+    # })
+    # r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    # if r.status_code != 200:
+    #     log(r.status_code)
+    #     log(r.text)
     return redirect("https://www.messenger.com")
 
 
@@ -123,10 +123,11 @@ def webhook():
                     #formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
                     #messageArgs = formattedString
                     #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
+                    print(params)
                     messageArgs[0] = params[0]
                     messageArgs[1] = params[1]
                     messageArgs[2] = params[2]
-                    id = sender_id
+                    #id = sender_id
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
                     send_message(sender_id, "Please Authorize your Transaction: " )
