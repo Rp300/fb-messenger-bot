@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def verify():
+    print("Hello world")
     # when the endpoint is registered as a webhook, it must echo back
     # the 'hub.challenge' value it receives in the query arguments
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
@@ -23,7 +24,6 @@ def verify():
 
 @app.route('/', methods=['POST'])
 def webhook():
-
     # endpoint for processing incoming messaging events
 
     data = request.get_json()
