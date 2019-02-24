@@ -83,10 +83,12 @@ def webhook():
                     print("before formatting")
                     check = format_input(message_text)
                     if (check == None):
-                        print("none")
-                        send_message(sender_id, "NONE")
-                        check = Check()
-                    print("1here")
+                        send_message(sender_id,"Please reformat your code");
+                        return "ok",400
+                    #     print("none")
+                    #     send_message(sender_id, "NONE")
+                    #     check = Check()
+                    # print("1here")
                     send_message(sender_id, check.to_string())
                     send_message(sender_id, message_text)
 
