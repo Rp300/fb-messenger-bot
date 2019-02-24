@@ -8,48 +8,12 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-class Check:
-    def __init__(self, full_name = None, email = None, amount = None):
-        self.full_name = full_name
-        self.email = email
-        self.amount = amount
-
-    def to_string(self):
-        return "Name: " + self.full_name + ", Email: " + self.email + ", Amount: " + str(self.amount)
-
 def format_input(message):
-    full_name = ""
-    email = None
-    amount = None
+    params = message.split(",");
+    for elem in params:
+        elem = elem.strip()
+    return params
 
-    if (len(message.split(" ")) < 3):
-        return None
-
-    ##Input message for the user promprint string format
-    print("send a check to [first name] [last name] at [email] for $[amount]")
-    for i in message.split(" "):
-        if ('@' in i):
-            email = i
-        elif (amount == None):
-            try:
-                amount = float(i.replace('$',''))
-            except ValueError:
-                amount = None
-
-    if (message.split(" ")[3] == "to"):
-        for i in message.split(" ")[4:message.split(" ").index("at")]:
-            full_name += i + " "
-
-
-    ##print(full_name)
-    ##print(email)
-    ##print(amount)
-
-    if (full_name == None or email == None or amount == None):
-        return None
-    else:
-        list = [full_name, email, amount]
-        return list
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -81,20 +45,15 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    print("before formatting")
-                    send_message(sender_id, message_text)
-                    #list = format_input(message_text)
-                    #send_message(sender_id, "Name: " + str(list[0]) + ", Email: " + str(list[1]) + ", Amount: " + str(list[2]))
+                    #name,email,amount
+                    params = format_input(message_text)
+                    string = ""
+                    for i in params:
+                        string += i
+
+                    send_message(sender_id, string)
                     return "ok", 200
-                    #if (check == None):
-                    #    print(message_text + " is an illegal input")
-                    #    send_message(sender_id,"Please reformat your code");
-                    #    return "ok",400
-                    #     print("none")
-                    #     send_message(sender_id, "NONE")
-                    #     check = Check()
-                    # print("1here")
-                    #send_message(sender_id, check.to_string())
+
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
