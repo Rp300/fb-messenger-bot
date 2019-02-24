@@ -43,9 +43,17 @@ def hello_world():
     bearer_token = data["access_token"]
 
     url = "https://sandbox.checkbook.io/v3/check/digital"
-    body = messageArgs
+    # body = messageArgs
     auth_header = 'bearer ' + bearer_token
-    print(auth_header)
+    # print(body.json())
+    # print(body)
+    # headers = {
+    #     'Content-Type': 'application/json',
+    #     'Authorization': auth_header
+    # }
+    # response = requests.request("POST", url, data=body, headers=headers)
+    # print(response.text)
+    body = "{\"name\":\"Widgets Inc.\",\"recipient\":\"widgets@example.com\",\"amount\":5.00}"
     headers = {
         'Content-Type': 'application/json',
         'Authorization': auth_header
