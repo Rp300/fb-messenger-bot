@@ -7,7 +7,7 @@ import requests
 from flask import Flask, request
 
 app = Flask(__name__)
-messageArgs = []
+messageArgs = ["test", "arul@gmail.com", "5.00"]
 
 def format_input(message):
     params = message.split(",");
@@ -38,7 +38,7 @@ def hello_world():
         "redirect_uri": "https://checkbook-messenger-bot.herokuapp.com/redirect",
         "client_secret": "nWiQFp9iCGciZ8X1d62PTgNrosyXe3"}
     response = requests.post("https://sandbox.checkbook.io/oauth/token", params)
-    print(response.json());
+    #print(response.json());
     data = response.json()
     bearer_token = data["access_token"]
 
@@ -53,8 +53,7 @@ def hello_world():
     # }
     # response = requests.request("POST", url, data=body, headers=headers)
     # print(response.text)
-    for i in messageArgs:
-        print(i)
+    print(messageArgs)
     body = '{\"name\":\"'+messageArgs[0]+'\",\"recipient\":\"'+messageArgs[1]+'\",\"amount\":'+messageArgs[2]+'}'
     headers = {
         'Content-Type': 'application/json',
