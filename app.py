@@ -46,7 +46,7 @@ def hello_world():
     body = messageArgs
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': bearer_token
+        'Authorization': "5633b82026504602837d70cf0a84323a:" + bearer_token
     }
     response = requests.request("POST", url, data=body, headers=headers)
     print(response.text)
