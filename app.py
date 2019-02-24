@@ -15,7 +15,7 @@ class Check:
         self.amount = amount
 
     def to_string(self):
-        return "Name: " + self.full_name + ", Email: " + self.email + ", Amount: " + self.amount
+        return "Name: " + self.full_name + ", Email: " + self.email + ", Amount: " + str(self.amount)
 
 def format_input(message):
     full_name = ""
