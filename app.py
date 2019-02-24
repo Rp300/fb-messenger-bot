@@ -44,7 +44,7 @@ def hello_world():
 
     url = "https://sandbox.checkbook.io/v3/check/digital"
     body = messageArgs
-    auth_header = "bearer " + bearer_token
+    auth_header = 'bearer ' + bearer_token
     print(auth_header)
     headers = {
         'Content-Type': 'application/json',
