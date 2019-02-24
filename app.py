@@ -39,8 +39,8 @@ def hello_world():
         "client_secret": "nWiQFp9iCGciZ8X1d62PTgNrosyXe3"}
     response = requests.post("https://sandbox.checkbook.io/oauth/token", params)
     print(response.json());
-
-    bearer_token = response["access_token"]
+    data = response.json()
+    bearer_token = data["access_token"]
 
     url = "https://sandbox.checkbook.io/v3/check/digital"
     body = messageArgs
