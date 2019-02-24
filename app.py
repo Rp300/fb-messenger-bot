@@ -7,7 +7,7 @@ import requests
 from flask import Flask, request
 
 app = Flask(__name__)
-messageArgs = ""
+messageArgs = []
 
 def format_input(message):
     params = message.split(",");
