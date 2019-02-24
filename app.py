@@ -9,7 +9,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 class Check:
-    def __init__(self, full_name, email, amount):
+    def __init__(self, full_name = None, email = None, amount = None):
         self.full_name = full_name
         self.email = email
         self.amount = amount
@@ -85,6 +85,7 @@ def webhook():
                     if (check == None):
                         print("none")
                         send_message(sender_id, "NONE")
+                        check = Check()
                     print("1here")
                     send_message(sender_id, check.to_string())
                     send_message(sender_id, message_text)
