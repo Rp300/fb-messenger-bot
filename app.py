@@ -15,8 +15,6 @@ def format_input(message):
     params = message.split(",");
     for elem in params:
         elem = elem.strip()
-    word = params[2]
-    params[2] = word[1:]
     return params
 
 
