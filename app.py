@@ -40,18 +40,16 @@ def hello_world():
     response = requests.post("https://sandbox.checkbook.io/oauth/token", params)
     print(response.json());
 
+    bearer_token = response["access_token"]
 
-    if response['token_type'] == "BEARER":
-        bearer_token = response["access_token"]
-
-        url = "https://sandbox.checkbook.io/v3/check/digital"
-        body = messageArgs
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': bearer_token
-        }
-        response = requests.request("POST", url, data=body, headers=headers)
-        print(response.text)
+    url = "https://sandbox.checkbook.io/v3/check/digital"
+    body = messageArgs
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': bearer_token
+    }
+    response = requests.request("POST", url, data=body, headers=headers)
+    print(response.text)
     return "<form action= 'messenger.com'> <input type='submit' value'Go back to messenger'/></form>"
 
 
