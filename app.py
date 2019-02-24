@@ -8,7 +8,8 @@ from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
 messageArgs = ["test", "invalid@gmail.com", "5.00"]
-sender_id = ""
+id = ""
+flag = False
 
 def format_input(message):
     params = message.split(",");
@@ -67,13 +68,30 @@ def hello_world():
 
 @app.route('/success', methods=['GET'])
 def success():
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": id
+        },
+        "message": {
+            "text": "Your payment has been successfully completed. You should recieve an email soon."
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
     return redirect("https://www.messenger.com")
 
 
 @app.route('/', methods=['POST'])
 def webhook():
     # endpoint for processing incoming messaging events
-
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
 
@@ -108,10 +126,12 @@ def webhook():
                     messageArgs[0] = params[0]
                     messageArgs[1] = params[1]
                     messageArgs[2] = params[2]
+                    id = sender_id
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
                     send_message(sender_id, "Please Authorize your Transaction: " )
                     send_message(sender_id,"https://sandbox.checkbook.io/oauth/authorize?client_id=5633b82026504602837d70cf0a84323a&response_type=code&scope=check&redirect_uri=https://checkbook-messenger-bot.herokuapp.com/redirect")
+
                     return "ok", 200
 
 
