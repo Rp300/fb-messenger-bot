@@ -7,9 +7,7 @@ import requests
 from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
-messageArgs = ["test", "invalid@gmail.com", "5.00"]
-id = ""
-flag = False
+#messageArgs = ["test", "invalid@gmail.com", "5.00"]
 
 def format_input(message):
     params = message.split(",");
@@ -56,6 +54,8 @@ def hello_world():
     # response = requests.request("POST", url, data=body, headers=headers)
     # print(response.text)
     print("HERE3")
+    data = read()
+    messageArgs = format_input(data)
     print(messageArgs)
     body = '{\"name\":\"'+messageArgs[0]+'\",\"recipient\":\"'+messageArgs[1]+'\",\"amount\":'+messageArgs[2]+'}'
     headers = {
@@ -69,24 +69,6 @@ def hello_world():
 
 @app.route('/success', methods=['GET'])
 def success():
-    # params = {
-    #     "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    # }
-    # headers = {
-    #     "Content-Type": "application/json"
-    # }
-    # data = json.dumps({
-    #     "recipient": {
-    #         "id": id
-    #     },
-    #     "message": {
-    #         "text": "Your payment has been successfully completed. You should recieve an email soon."
-    #     }
-    # })
-    # r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-    # if r.status_code != 200:
-    #     log(r.status_code)
-    #     log(r.text)
     return redirect("https://www.messenger.com")
 
 
@@ -125,12 +107,13 @@ def webhook():
                     #messageArgs = formattedString
                     #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
                     print("HERE1")
+                    write(params[0], params[1], params[2])
                     print(params)
-                    messageArgs[0] = params[0]
-                    messageArgs[1] = params[1]
-                    messageArgs[2] = params[2]
+                    # messageArgs[0] = params[0]
+                    # messageArgs[1] = params[1]
+                    # messageArgs[2] = params[2]
                     print("HERE2")
-                    print(messageArgs)
+                    #print(messageArgs)
                     #id = sender_id
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
@@ -180,6 +163,15 @@ def send_message(recipient_id, message_text):
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     print(msg)
 
+def write(name, email, amount):
+    file = open("data.txt", "w")
+    file.write(name + "," + email + "," + amount)
+    file.close()
+
+def read():
+    file = open("data.txt", "r")
+    data = file.readlines()
+    return data[0]
 
 
 if __name__ == '__main__':
