@@ -48,7 +48,8 @@ def format_input(message):
     if (full_name == None or email == None or amount == None):
         return None
     else:
-        return Check(full_name, email, amount)
+        list = [full_name, email, amount]
+        return list
 
 @app.route('/', methods=['GET'])
 def verify():
