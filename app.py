@@ -64,7 +64,7 @@ def hello_world():
     }
     response = requests.request("POST", url, data=body, headers=headers)
     print(response.text)
-    send_message(messageArgs[3], "Your transaction has successfully gone through. Check your email for conformation.")
+    send_message(messageArgs[3], "Your transaction is being processed. Check your email for conformation.")
     #send_message(sender_id, "You have successfully paid.")
     return redirect(url_for('success'))
 
