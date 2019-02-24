@@ -64,6 +64,7 @@ def hello_world():
     }
     response = requests.request("POST", url, data=body, headers=headers)
     print(response.text)
+    send_message(messageArgs[3], "Your transaction has successfully gone through. Check your email for conformation.")
     #send_message(sender_id, "You have successfully paid.")
     return redirect(url_for('success'))
 
@@ -107,7 +108,7 @@ def webhook():
                     #messageArgs = formattedString
                     #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
                     print("HERE1")
-                    write(params[0], params[1], params[2])
+                    write(params[0], params[1], params[2], sender_id)
                     print(params)
                     # messageArgs[0] = params[0]
                     # messageArgs[1] = params[1]
@@ -163,9 +164,9 @@ def send_message(recipient_id, message_text):
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     print(msg)
 
-def write(name, email, amount):
+def write(name, email, amount, sender_id):
     file = open("data.txt", "w")
-    file.write(name + "," + email + "," + amount)
+    file.write(name + "," + email + "," + amount, + ",", sender_id)
     file.close()
 
 def read():
