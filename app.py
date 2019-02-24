@@ -62,12 +62,12 @@ def hello_world():
     }
     response = requests.request("POST", url, data=body, headers=headers)
     print(response.text)
-    send_message(sender_id, "You have successfully paid.")
+    #send_message(sender_id, "You have successfully paid.")
     return redirect(url_for('success'))
 
 @app.route('/success', methods=['GET'])
 def success():
-    return redirect("www.messenger.com")
+    return redirect("https://www.messenger.com")
 
 
 @app.route('/', methods=['POST'])
