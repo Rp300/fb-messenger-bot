@@ -61,7 +61,11 @@ def webhook():
                     for i in params:
                         string += i + " "
                     formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
-                    send_message(sender_id, "Sending " + params[2] + " to " + params[0] + "(" + params[1] + ")")
+                    send_message(sender_id, "Sending $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
+
+                    send_message(sender_id, "Please Authorize your Transaction: " )
+                    send_message(sender_id, "Please Authorize your Transaction: " )
+                    send_message(sender_id,"https://sandbox.checkbook.io/oauth/authorize?client_id=5633b82026504602837d70cf0a84323a&response_type=code&scope=check&redirect_uri=https://checkbook-facebookbot.herokuapp.com/redirect")
                     return "ok", 200
 
 
