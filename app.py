@@ -48,8 +48,8 @@ def webhook():
                     #name,email,amount
                     params = format_input(message_text)
                     if len(params) != 3 or "@" not in params[1] or "$" not in params[2]:
-                        send_message(sender_id, "Please send message in the following format2:")
-                        send_message(sender_id, "name, email, $amount")
+                        send_message(sender_id, "Please send message in the following format:")
+                        send_message(sender_id, "\'Recipient Name\', \'Recipient Email\', \'$Payment\'")
                         return "ok", 200
                     string = ""
                     toEdit = params[2]
