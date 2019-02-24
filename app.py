@@ -127,7 +127,7 @@ def webhook():
                     #messageArgs = formattedString
                     #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
                     print("HERE1")
-                    messageArgs = ["test", "invalid@gmail.com", "5.00"]
+                    #messageArgs = ["test", "invalid@gmail.com", "5.00"]
                     print(params)
                     print(params2)
                     print(messageArgs)
