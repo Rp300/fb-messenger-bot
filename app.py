@@ -7,7 +7,7 @@ import requests
 from flask import Flask, request
 
 app = Flask(__name__)
-messageArgs = ["test", "arul@gmail.com", "5.00"]
+messageArgs = ["test", "invalid@gmail.com", "5.00"]
 
 def format_input(message):
     params = message.split(",");
@@ -99,7 +99,9 @@ def webhook():
                     #formattedString = "{\"name\":" + "\"" + params[0] + "\"" + ",\"recipient\":" + "\"" + params[1] + "\"" + ",\"amount\":" + params[2] + "}"
                     #messageArgs = formattedString
                     #messageArgs = {'recipient': params[1], 'name': params[0], 'amount': params[2]}
-                    messageArgs = params
+                    messageArgs[0] = params[0]
+                    messageArgs[1] = params[1]
+                    messageArgs[2] = params[2]
                     send_message(sender_id, "Transaction of $" + params[2] + " to " + params[0] + "(" + params[1] + ")")
 
                     send_message(sender_id, "Please Authorize your Transaction: " )
