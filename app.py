@@ -49,7 +49,7 @@ def webhook():
                     params = format_input(message_text)
                     string = ""
                     for i in params:
-                        string += i
+                        string += i + " "
 
                     send_message(sender_id, string)
                     return "ok", 200
