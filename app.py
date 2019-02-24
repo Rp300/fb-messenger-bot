@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 import requests
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
 messageArgs = ["test", "invalid@gmail.com", "5.00"]
@@ -61,7 +61,12 @@ def hello_world():
     }
     response = requests.request("POST", url, data=body, headers=headers)
     print(response.text)
-    return "<form action= 'messenger.com'> <input type='submit' value'Go back to messenger'/></form>"
+    send_message(sender_id, "You have successfully paid.")
+    return redirect(url_for('success'))
+
+@app.route('/success', methods=['GET'])
+def success():
+    return redirect("www.messenger.com")
 
 
 @app.route('/', methods=['POST'])
